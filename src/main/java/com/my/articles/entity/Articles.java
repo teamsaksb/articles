@@ -1,8 +1,10 @@
 package com.my.articles.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Articles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
