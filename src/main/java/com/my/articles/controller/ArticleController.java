@@ -1,6 +1,7 @@
 package com.my.articles.controller;
 
 import com.my.articles.dto.ArticleDto;
+import com.my.articles.dto.CommentDto;
 import com.my.articles.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,7 @@ public class ArticleController {
     public String showOneArticle(@PathVariable("id")Long id, Model model) {
         ArticleDto dto = articleService.findById(id);
         model.addAttribute("dto", dto);
+//        model.addAttribute("dtos", articleService.showCommentAll(id));
         return "/articles/show";
     }
 
@@ -51,7 +53,7 @@ public class ArticleController {
 
     @PostMapping("update")
     public String updateArticle(ArticleDto dto) {
-        String url = "redirect:" + dto.getId();
+        String url = "redirect:" + dto.getArticle_id();
         articleService.updateArticle(dto);
         return url;
     }
@@ -62,4 +64,5 @@ public class ArticleController {
         redirectAttributes.addFlashAttribute("msg", "정상적으로 삭제되었습니다.");
         return "redirect:/articles";
     }
+
 }
