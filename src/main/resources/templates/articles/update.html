@@ -12,7 +12,7 @@
 <body>
 <div layout:fragment="content" class="content">
     <form class="container" action="/articles/update" method="post" th:object="${dto}">
-        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{article_id}">
         <div class="mb3">
             <label class="form-label">제목</label>
             <input type="text" class="form-control" th:field="*{title}" name="title">

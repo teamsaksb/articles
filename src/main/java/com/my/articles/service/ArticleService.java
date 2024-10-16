@@ -2,7 +2,9 @@ package com.my.articles.service;
 
 import com.my.articles.dao.ArticleDao;
 import com.my.articles.dto.ArticleDto;
+import com.my.articles.dto.CommentDto;
 import com.my.articles.entity.Articles;
+import com.my.articles.entity.Comment;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,8 @@ import java.util.List;
 
 @Service
 public class ArticleService {
-//    @Autowired
-//    EntityManager em;
+    @Autowired
+    EntityManager em;
 
     @Autowired
     ArticleDao dao;
@@ -55,4 +57,17 @@ public class ArticleService {
     public void insertArticle(ArticleDto dto) {
         dao.insertArticle(ArticleDto.fromDto(dto));
     }
+
+    public List<Comment> commentFindById(Long id) {
+        List<Comment> comment = dao.getOneComment(id);
+        if(ObjectUtils.isEmpty(comment)) return null;
+        return comment;
+    }
+
+//    public List<Comment> showCommentAll(Long id) {
+//        String sql = "SELECT c FROM Comment c WHERE c.articles.article_id = :id";
+//        Query query = em.createQuery(sql);
+//        List<Comment> commentList = query.setParameter("id", id).getResultList();
+//        return commentList;
+//    }
 }

@@ -2,6 +2,7 @@ package com.my.articles.dao;
 
 import com.my.articles.dto.ArticleDto;
 import com.my.articles.entity.Articles;
+import com.my.articles.entity.Comment;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,8 @@ public class ArticleDao {
 
     public List<Articles> getAllArticle() {
         String sql = "SELECT a FROM Articles a ORDER BY a.id DESC";
-        return em.createQuery(sql).getResultList();
+        List<Articles> articles = em.createQuery(sql).getResultList();
+        return articles;
     }
 
     public Articles getOneArticle(Long id) {
@@ -30,12 +32,17 @@ public class ArticleDao {
     }
 
     public void updateArticle(ArticleDto dto) {
-        Articles articles = em.find(Articles.class, dto.getId());
+        Articles articles = em.find(Articles.class, dto.getArticle_id());
         articles.setTitle(dto.getTitle());
         articles.setContent(dto.getContent());
     }
 
     public void insertArticle(Articles articles) {
         em.persist(articles);
+    }
+
+    public List<Comment> getOneComment(Long id) {
+        String sql = "SELECT c FROM Comment c WHERE c.article_id = :id";
+        return em.createQuery(sql).getResultList();
     }
 }
