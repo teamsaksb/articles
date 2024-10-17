@@ -23,7 +23,7 @@ public class CommentDao {
     public Long deleteComment(Long id) {
         Comment comment = em.find(Comment.class, id);
         em.remove(comment);
-        return comment.getArticles().getArticle_id();
+        return comment.getArticles().getId();
     }
 
     public Comment findByIdComment(Long commentId) {

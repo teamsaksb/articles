@@ -32,7 +32,7 @@ public class ArticleDao {
     }
 
     public void updateArticle(ArticleDto dto) {
-        Articles articles = em.find(Articles.class, dto.getArticle_id());
+        Articles articles = em.find(Articles.class, dto.getId());
         articles.setTitle(dto.getTitle());
         articles.setContent(dto.getContent());
     }
