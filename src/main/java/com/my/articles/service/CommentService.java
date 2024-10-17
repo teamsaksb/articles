@@ -27,7 +27,7 @@ public class CommentService {
         Comment comment = commentDao.findByIdComment(commentId);
         Map<String, Object> map = new HashMap<>();
         map.put("dto", CommentDto.fromEntity(comment));
-        map.put("articleId", comment.getArticles().getArticle_id());
+        map.put("articleId", comment.getArticles().getId());
         return map;
     }
 

@@ -13,14 +13,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleDto {
-    private Long article_id;
+    private Long id;
     private String title;
     private String content;
     private List<CommentDto> commentList = new ArrayList<>();
 
     public static ArticleDto fromEntity(Articles articles) {
         return new ArticleDto(
-                articles.getArticle_id(),
+                articles.getId(),
                 articles.getTitle(),
                 articles.getContent(),
                 articles.getCommentList().stream().map(x -> CommentDto.fromEntity(x)).toList()
@@ -29,7 +29,7 @@ public class ArticleDto {
 
     public static Articles fromDto(ArticleDto dto) {
         Articles articles = new Articles();
-        articles.setArticle_id(dto.article_id);
+        articles.setId(dto.getId());
         articles.setTitle(dto.getTitle());
         articles.setContent(dto.getContent());
         return articles;

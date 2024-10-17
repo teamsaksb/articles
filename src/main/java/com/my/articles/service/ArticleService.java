@@ -5,9 +5,12 @@ import com.my.articles.dto.ArticleDto;
 import com.my.articles.dto.CommentDto;
 import com.my.articles.entity.Articles;
 import com.my.articles.entity.Comment;
+import com.my.articles.repository.ArticleRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -21,6 +24,9 @@ public class ArticleService {
 
     @Autowired
     ArticleDao dao;
+
+    @Autowired
+    ArticleRepository articleRepository;
 
     public List<ArticleDto> showAll() {
 //        String sql = "SELECT a FROM Articles a";
@@ -62,6 +68,11 @@ public class ArticleService {
         List<Comment> comment = dao.getOneComment(id);
         if(ObjectUtils.isEmpty(comment)) return null;
         return comment;
+    }
+
+    public Page<ArticleDto> getArticlePage(Pageable pageable) {
+        Page<Articles> articles = articleRepository.findAll(pageable);
+        return articles.map(x -> ArticleDto.fromEntity(x));
     }
 
 //    public List<Comment> showCommentAll(Long id) {
